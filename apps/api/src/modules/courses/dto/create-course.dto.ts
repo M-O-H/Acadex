@@ -1,0 +1,13 @@
+import { IsString, IsOptional } from 'class-validator';
+
+export class CreateCourseDto {
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsString()
+  code: string;
+}

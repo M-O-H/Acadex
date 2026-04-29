@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String  @unique
+  password String
+  firstName String?
+  lastName  String?
+  role     Role    @default(STUDENT)
+  isApproved Boolean @default(false)
+  isEmailVerified Boolean @default(false)
+  isPhoneVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollments Enrollment[]
+  attendances Attendance[]
+  grades    Grade[]
+  studentProfile StudentProfile?
+  verificationCodes VerificationCode[]
+
+  @@map("users")
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  code        String  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enrollments Enrollment[]
+  attendances Attendance[]
+  grades    Grade[]
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  enrolledAt DateTime @default(now())
+  status    EnrollmentStatus @default(ACTIVE)
+
+  user    User    @relation(fields: [userId], references: [id])
+  course  Course  @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+model Attendance {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  date      DateTime
+  present   Boolean
+
+  user    User    @relation(fields: [userId], references: [id])
+  course  Course  @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId, date])
+  @@map("attendances")
+}
+
+model Grade {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  value     Float
+  maxValue  Float    @default(100)
+  gradedAt  DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  course  Course  @relation(fields: [courseId], references: [id])
+
+  @@map("grades")
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
+}
+
+enum CertificateType {
+  SUDANESE
+  ARABIAN
+  FOREIGN
+}
+
+enum StudentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model StudentProfile {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  fullNameAr     String
+  fullNameEn     String
+  dateOfBirth    DateTime
+  photoPath     String?
+  phone          String
+  personalEmail String
+  address        String
+  certificateType CertificateType
+  nationality   String
+  status         StudentStatus @default(PENDING)
+  rejectionReason String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("student_profiles")
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  userId   String
+  code     String
+  type     VerificationType
+  expiresAt DateTime
+  verified Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("verification_codes")
+}
+
+enum VerificationType {
+  EMAIL
+  SMS
+}

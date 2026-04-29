@@ -1,0 +1,1 @@
+{"version":3,"file":"create-course.dto.js","sourceRoot":"","sources":["../../../../../src/modules/courses/dto/create-course.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAAuD;AAEvD,MAAa,eAAe;IAE1B,KAAK,CAAS;IAId,WAAW,CAAU;IAGrB,IAAI,CAAS;CACd;AAVD,0CAUC;AARC;IADC,IAAA,0BAAQ,GAAE;;8CACG;AAId;IAFC,IAAA,4BAAU,GAAE;IACZ,IAAA,0BAAQ,GAAE;;oDACU;AAGrB;IADC,IAAA,0BAAQ,GAAE;;6CACE"}
