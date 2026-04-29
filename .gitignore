@@ -1,5 +1,40 @@
-node_modules
-# Keep environment variables out of version control
-.env
+# Dependencies
+node_modules/
 
-/generated/prisma
+# Build outputs
+apps/*/dist/
+apps/*/.next/
+packages/*/dist/
+coverage/
+
+# Turbo cache
+.turbo/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Prisma
+apps/api/prisma/*.db
+apps/api/prisma/migrations/
+
+# Uploads
+apps/api/uploads/
+
+# Temp
+*.tmp
+*.temp
