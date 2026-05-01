@@ -181,7 +181,7 @@ export class StudentsService {
   //   return { message: 'Verification code sent' };
   // }
 
-  async getPendingStudents() {
+  getPendingStudents() {
     return this.prisma.studentProfile.findMany({
       where: { status: 'PENDING' },
       include: {
