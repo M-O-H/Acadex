@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useAuth } from "@/components/providers/AuthProvider";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/Button";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { Card, CardHeader, CardBody } from "@/components/ui/Card";
-import { Spinner } from "@/components/ui/Spinner";
+import { useEffect } from 'react';
+import { useAuth } from '@/components/providers/AuthProvider';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/Button';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { Card, CardHeader, CardBody } from '@/components/ui/Card';
+import { Spinner } from '@/components/ui/Spinner';
 
 export default function DashboardPage() {
   const { user, isLoading, isAuth, logout } = useAuth();
@@ -14,13 +14,13 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!isLoading && !isAuth) {
-      router.push("/login");
+      router.push('/login');
     }
   }, [isLoading, isAuth, router]);
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    router.push('/login');
   };
 
   if (isLoading) {
@@ -43,7 +43,9 @@ export default function DashboardPage() {
             <h1 className="text-xl font-bold text-primary-600">Acadex</h1>
             <div className="flex items-center gap-4">
               <ThemeToggle />
-              <span className="text-gray-700 dark:text-gray-300">{user?.email}</span>
+              <span className="text-gray-700 dark:text-gray-300">
+                {user?.email}
+              </span>
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 Logout
               </Button>
@@ -55,19 +57,25 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <Card className="dark:bg-gray-800 dark:border-gray-700">
           <CardHeader>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome!</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Welcome!
+            </h2>
           </CardHeader>
           <CardBody>
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Full Name</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Full Name
+                  </p>
                   <p className="text-lg font-medium text-gray-900 dark:text-white">
                     {user?.firstName} {user?.lastName}
                   </p>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Email
+                  </p>
                   <p className="text-lg font-medium text-gray-900 dark:text-white">
                     {user?.email}
                   </p>

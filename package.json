@@ -5,7 +5,9 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "format": "turbo format",
     "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
     "test": "turbo test",
     "clean": "turbo clean"
   },
@@ -17,4 +19,3 @@
     "node": ">=18"
   }
 }
-

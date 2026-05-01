@@ -313,7 +313,9 @@ export function RegisterForm() {
                       </label>
                       <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG up to 2MB</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      PNG, JPG up to 2MB
+                    </p>
                   </>
                 )}
               </div>
@@ -334,9 +336,9 @@ export function RegisterForm() {
         </form>
       </CardBody>
 
-<CardFooter>
+      <CardFooter>
         <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <a
             href="/login"
             className="text-primary-600 hover:text-primary-700 font-medium dark:text-primary-400"

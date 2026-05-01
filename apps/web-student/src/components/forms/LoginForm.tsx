@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
-import { Card, CardHeader, CardBody, CardFooter } from "@/components/ui/Card";
-import { apiClient, AUTH_ENDPOINTS } from "@/lib/api";
-import { useAuth } from "@/components/providers/AuthProvider";
-import { LoginFormData } from "@/lib/types";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
+import { Card, CardHeader, CardBody, CardFooter } from '@/components/ui/Card';
+import { apiClient, AUTH_ENDPOINTS } from '@/lib/api';
+import { useAuth } from '@/components/providers/AuthProvider';
+import { LoginFormData } from '@/lib/types';
 
 export function LoginForm() {
   const router = useRouter();
@@ -15,15 +15,15 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<LoginFormData>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+    setFieldErrors((prev) => ({ ...prev, [name]: '' }));
     setError(null);
   };
 
@@ -36,14 +36,14 @@ export function LoginForm() {
     try {
       const response = await apiClient.post(AUTH_ENDPOINTS.LOGIN, formData);
       login(response.data);
-      router.push("/dashboard");
+      router.push('/dashboard');
     } catch (err: any) {
-      if (err.message.includes("pending admin approval")) {
+      if (err.message.includes('pending admin approval')) {
         setError(
-          "Your account is pending admin approval. Please wait for confirmation.",
+          'Your account is pending admin approval. Please wait for confirmation.',
         );
       } else {
-        setError(err.message || "Invalid email or password");
+        setError(err.message || 'Invalid email or password');
       }
     } finally {
       setIsLoading(false);
@@ -97,14 +97,14 @@ export function LoginForm() {
             isLoading={isLoading}
             disabled={isLoading}
           >
-            {isLoading ? "Signing in..." : "Sign In"}
+            {isLoading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
       </CardBody>
 
       <CardFooter>
         <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <a
             href="/register"
             className="text-primary-600 hover:text-primary-700 font-medium dark:text-primary-400"

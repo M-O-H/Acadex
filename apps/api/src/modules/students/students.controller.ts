@@ -7,7 +7,6 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
-  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -21,7 +20,6 @@ import {
   StudentRegisterDto,
   VerifyOtpDto,
   ResendOtpDto,
-  ApproveStudentDto,
   RejectStudentDto,
 } from './dto/student.dto';
 

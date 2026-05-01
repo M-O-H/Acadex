@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { InputHTMLAttributes, forwardRef, useState } from "react";
-import { clsx } from "clsx";
+import { InputHTMLAttributes, forwardRef, useState } from 'react';
+import { clsx } from 'clsx';
 
 interface FileInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  "type"
+  'type'
 > {
   label?: string;
   error?: string;
@@ -18,7 +18,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
     {
       label,
       error,
-      accept = "image/jpeg,image/png,image/jpg",
+      accept = 'image/jpeg,image/png,image/jpg',
       preview,
       className,
       id,
@@ -59,10 +59,10 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
         )}
         <div
           className={clsx(
-            "mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg transition-colors",
+            'mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-lg transition-colors',
             error
-              ? "border-red-500 bg-red-50 dark:bg-red-900/20"
-              : "border-gray-300 dark:border-gray-600 hover:border-primary-400",
+              ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
+              : 'border-gray-300 dark:border-gray-600 hover:border-primary-400',
           )}
         >
           <div className="space-y-1 text-center">
@@ -127,15 +127,19 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                   </label>
                   <p className="pl-1">or drag and drop</p>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG up to 2MB</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  PNG, JPG up to 2MB
+                </p>
               </>
             )}
           </div>
         </div>
-        {error && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {error && (
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>
+        )}
       </div>
     );
   },
 );
 
-FileInput.displayName = "FileInput";
+FileInput.displayName = 'FileInput';

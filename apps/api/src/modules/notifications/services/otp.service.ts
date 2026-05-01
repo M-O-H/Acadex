@@ -9,11 +9,11 @@ export class OtpService {
     return randomInt(1000, 9999).toString();
   }
 
-  async sendSms(phone: string, code: string): Promise<void> {
+  sendSms(phone: string, code: string): void {
     this.logger.log(`[MOCK SMS] To: ${phone} | Code: ${code}`);
   }
 
-  async sendEmail(to: string, code: string): Promise<void> {
+  sendEmail(to: string, code: string): void {
     this.logger.log(`[MOCK EMAIL] To: ${to} | Verification code: ${code}`);
   }
 }

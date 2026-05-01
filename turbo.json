@@ -11,7 +11,13 @@
       "cache": false,
       "persistent": true
     },
+    "format": {
+      "cache": true
+    },
     "lint": {
+      "cache": true
+    },
+    "typecheck": {
       "cache": true
     },
     "test": {

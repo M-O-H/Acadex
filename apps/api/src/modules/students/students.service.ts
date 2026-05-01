@@ -2,7 +2,6 @@ import {
   Injectable,
   ConflictException,
   BadRequestException,
-  ForbiddenException,
   NotFoundException,
   Logger,
 } from '@nestjs/common';
@@ -168,9 +167,9 @@ export class StudentsService {
     const code = this.otpService.generateOtp();
 
     if (type === VerificationType.EMAIL) {
-      await this.otpService.sendEmail(profile.personalEmail, code);
+      this.otpService.sendEmail(profile.personalEmail, code);
     } else {
-      await this.otpService.sendSms(profile.phone, code);
+      this.otpService.sendSms(profile.phone, code);
     }
 
     await this.prisma.verificationCode.create({
@@ -270,10 +269,8 @@ export class StudentsService {
     const smsCode = this.otpService.generateOtp();
     const expiry = new Date(Date.now() + this.otpExpiryMinutes * 60 * 1000);
 
-    await Promise.all([
-      this.otpService.sendEmail(email, emailCode),
-      this.otpService.sendSms(phone, smsCode),
-    ]);
+    this.otpService.sendEmail(email, emailCode);
+    this.otpService.sendSms(phone, smsCode);
 
     await this.prisma.verificationCode.createMany({
       data: [

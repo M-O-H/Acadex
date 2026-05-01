@@ -1,31 +1,31 @@
-import Cookies from "js-cookie";
-import { AuthResponse, User } from "./types";
+import Cookies from 'js-cookie';
+import { AuthResponse, User } from './types';
 
-const AUTH_TOKEN_KEY = "auth_token";
-const USER_KEY = "user_data";
+const AUTH_TOKEN_KEY = 'auth_token';
+const USER_KEY = 'user_data';
 
 export const authStorage = {
   getToken(): string | undefined {
-    if (typeof window === "undefined") return undefined;
+    if (typeof window === 'undefined') return undefined;
     return Cookies.get(AUTH_TOKEN_KEY);
   },
 
   setToken(token: string): void {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
     Cookies.set(AUTH_TOKEN_KEY, token, {
       expires: 7,
-      path: "/",
-      sameSite: "strict",
+      path: '/',
+      sameSite: 'strict',
     });
   },
 
   removeToken(): void {
-    if (typeof window === "undefined") return;
-    Cookies.remove(AUTH_TOKEN_KEY, { path: "/" });
+    if (typeof window === 'undefined') return;
+    Cookies.remove(AUTH_TOKEN_KEY, { path: '/' });
   },
 
   getUser(): User | null {
-    if (typeof window === "undefined") return null;
+    if (typeof window === 'undefined') return null;
     const userData = Cookies.get(USER_KEY);
     if (!userData) return null;
     try {
@@ -36,17 +36,17 @@ export const authStorage = {
   },
 
   setUser(user: User): void {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
     Cookies.set(USER_KEY, JSON.stringify(user), {
       expires: 7,
-      path: "/",
-      sameSite: "strict",
+      path: '/',
+      sameSite: 'strict',
     });
   },
 
   removeUser(): void {
-    if (typeof window === "undefined") return;
-    Cookies.remove(USER_KEY, { path: "/" });
+    if (typeof window === 'undefined') return;
+    Cookies.remove(USER_KEY, { path: '/' });
   },
 
   clear(): void {
@@ -66,5 +66,5 @@ export function isAuthenticated(): boolean {
 
 export function isStudent(): boolean {
   const user = authStorage.getUser();
-  return user?.role === "STUDENT";
+  return user?.role === 'STUDENT';
 }

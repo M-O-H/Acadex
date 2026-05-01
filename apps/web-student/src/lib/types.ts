@@ -22,7 +22,7 @@ export interface ApiError {
   statusCode?: number;
 }
 
-export type CertificateType = "SUDANESE" | "ARABIAN" | "FOREIGN";
+export type CertificateType = 'SUDANESE' | 'ARABIAN' | 'FOREIGN';
 
 export interface RegisterFormData {
   fullNameAr: string;
