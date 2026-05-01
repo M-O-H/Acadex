@@ -6,6 +6,8 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "format": "turbo format",
     "test": "turbo test",
     "clean": "turbo clean"
   },
@@ -17,4 +19,3 @@
     "node": ">=18"
   }
 }
-

@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { AuthProvider } from "@/components/providers/AuthProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import type { Metadata } from 'next';
+import './globals.css';
+import { AuthProvider } from '@/components/providers/AuthProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: "Acadex - Student Portal",
-  description: "Student authentication and enrollment system",
+  title: 'Acadex - Student Portal',
+  description: 'Student authentication and enrollment system',
 };
 
 export default function RootLayout({

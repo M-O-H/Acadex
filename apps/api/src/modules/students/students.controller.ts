@@ -7,7 +7,6 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
-  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -20,8 +19,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import {
   StudentRegisterDto,
   VerifyOtpDto,
-  ResendOtpDto,
-  ApproveStudentDto,
+  // ResendOtpDto,
   RejectStudentDto,
 } from './dto/student.dto';
 
@@ -68,10 +66,10 @@ export class StudentsController {
     return this.studentsService.verifyOtp(dto);
   }
 
-  @Post('resend-otp')
-  resendOtp(@Body() dto: ResendOtpDto) {
-    return this.studentsService.resendOtp(dto);
-  }
+  // @Post('resend-otp')
+  // resendOtp(@Body() dto: ResendOtpDto) {
+  //   return this.studentsService.resendOtp(dto);
+  // }
 
   @Get('admin/pending')
   @UseGuards(JwtAuthGuard, RolesGuard)

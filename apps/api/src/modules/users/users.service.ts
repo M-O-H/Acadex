@@ -69,7 +69,7 @@ export class UsersService {
 
   async findAll() {
     this.logger.log('Fetching all users');
-    return this.prisma.user.findMany({
+    return await this.prisma.user.findMany({
       select: {
         id: true,
         email: true,
@@ -106,7 +106,7 @@ export class UsersService {
     return user;
   }
 
-  async findByEmail(email: string) {
+  findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
       select: {

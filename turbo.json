@@ -11,7 +11,14 @@
       "cache": false,
       "persistent": true
     },
+    "format": {
+      "cache": true
+    },
     "lint": {
+      "cache": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
       "cache": true
     },
     "test": {

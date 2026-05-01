@@ -7,13 +7,6 @@ import {
 const ARABIC_BLOCK =
   /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
 const LATIN_ONLY = /^[a-zA-Z\s'-]+$/;
-const CONFUSABLE_RANGES = [
-  '\u0400-\u04FF',
-  '\u0370-\u03FF',
-  '\u1F00-\u1FFF',
-  '\u0400-\u047F',
-  '\u0500-\u052F',
-];
 const BIDIRECTIONAL_CHARS = /[\u200E\u200F\u202A-\u202E]/;
 const NUMERIC_CHARS = /[0-9]/;
 

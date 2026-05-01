@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useAuth } from "@/components/providers/AuthProvider";
-import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useAuth } from '@/components/providers/AuthProvider';
+import { useRouter, usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 export function useAuthGuard() {
   const { user, isLoading, isAuth } = useAuth();

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   useContext,
@@ -6,9 +6,9 @@ import {
   useState,
   createContext,
   useCallback,
-} from "react";
-import { User } from "@/lib/types";
-import { authStorage, isAuthenticated } from "@/lib/auth";
+} from 'react';
+import { User } from '@/lib/types';
+import { authStorage, isAuthenticated } from '@/lib/auth';
 
 interface AuthContextType {
   user: User | null;
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }
