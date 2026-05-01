@@ -19,7 +19,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import {
   StudentRegisterDto,
   VerifyOtpDto,
-  ResendOtpDto,
+  // ResendOtpDto,
   RejectStudentDto,
 } from './dto/student.dto';
 
@@ -66,10 +66,10 @@ export class StudentsController {
     return this.studentsService.verifyOtp(dto);
   }
 
-  @Post('resend-otp')
-  resendOtp(@Body() dto: ResendOtpDto) {
-    return this.studentsService.resendOtp(dto);
-  }
+  // @Post('resend-otp')
+  // resendOtp(@Body() dto: ResendOtpDto) {
+  //   return this.studentsService.resendOtp(dto);
+  // }
 
   @Get('admin/pending')
   @UseGuards(JwtAuthGuard, RolesGuard)

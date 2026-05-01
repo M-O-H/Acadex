@@ -6,11 +6,10 @@ import {
   Logger,
 } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
-import { OtpService } from '../notifications/services/otp.service';
 import {
   StudentRegisterDto,
   VerifyOtpDto,
-  ResendOtpDto,
+  // ResendOtpDto,
 } from './dto/student.dto';
 import { VerificationType } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -20,12 +19,9 @@ import { existsSync, mkdirSync } from 'fs';
 @Injectable()
 export class StudentsService {
   private readonly logger = new Logger(StudentsService.name);
-  private readonly otpExpiryMinutes = 10;
+  // private readonly otpExpiryMinutes = 10;
 
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly otpService: OtpService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async register(dto: StudentRegisterDto, photoFile: Express.Multer.File) {
     this.logger.log(`Student registration attempt: ${dto.personalEmail}`);
@@ -51,8 +47,7 @@ export class StudentsService {
       `${Date.now()}-${photoFile.originalname}`,
     );
 
-    const temporaryPassword = this.otpService.generateOtp();
-    const hashedPassword = await bcrypt.hash(temporaryPassword, 10);
+    const hashedPassword = await bcrypt.hash('temporaryPassword', 10);
 
     const user = await this.prisma.user.create({
       data: {
@@ -81,7 +76,7 @@ export class StudentsService {
       },
     });
 
-    await this.sendVerificationCodes(user.id, dto.personalEmail, dto.phone);
+    // await this.sendVerificationCodes(user.id, dto.personalEmail, dto.phone);
 
     this.logger.log(`Student registered (pending): ${dto.personalEmail}`);
 
@@ -139,52 +134,52 @@ export class StudentsService {
     };
   }
 
-  async resendOtp(dto: ResendOtpDto) {
-    const user = await this.prisma.user.findUnique({
-      where: { email: dto.email },
-    });
-
-    if (!user) {
-      throw new NotFoundException('Registration not found');
-    }
-
-    await this.prisma.verificationCode.deleteMany({
-      where: {
-        userId: user.id,
-        verified: false,
-      },
-    });
-
-    const profile = await this.prisma.studentProfile.findUnique({
-      where: { userId: user.id },
-    });
-
-    if (!profile) {
-      throw new NotFoundException('Student profile not found');
-    }
-
-    const type = dto.type as unknown as VerificationType;
-    const code = this.otpService.generateOtp();
-
-    if (type === VerificationType.EMAIL) {
-      this.otpService.sendEmail(profile.personalEmail, code);
-    } else {
-      this.otpService.sendSms(profile.phone, code);
-    }
-
-    await this.prisma.verificationCode.create({
-      data: {
-        userId: user.id,
-        code,
-        type,
-        expiresAt: new Date(Date.now() + this.otpExpiryMinutes * 60 * 1000),
-      },
-    });
-
-    this.logger.log(`OTP resent via ${dto.type}: ${dto.email}`);
-
-    return { message: 'Verification code sent' };
-  }
+  // async resendOtp(dto: ResendOtpDto) {
+  //   const user = await this.prisma.user.findUnique({
+  //     where: { email: dto.email },
+  //   });
+  //
+  //   if (!user) {
+  //     throw new NotFoundException('Registration not found');
+  //   }
+  //
+  //   await this.prisma.verificationCode.deleteMany({
+  //     where: {
+  //       userId: user.id,
+  //       verified: false,
+  //     },
+  //   });
+  //
+  //   const profile = await this.prisma.studentProfile.findUnique({
+  //     where: { userId: user.id },
+  //   });
+  //
+  //   if (!profile) {
+  //     throw new NotFoundException('Student profile not found');
+  //   }
+  //
+  //   const type = dto.type as unknown as VerificationType;
+  //   const code = this.otpService.generateOtp();
+  //
+  //   if (type === VerificationType.EMAIL) {
+  //     this.otpService.sendEmail(profile.personalEmail, code);
+  //   } else {
+  //     this.otpService.sendSms(profile.phone, code);
+  //   }
+  //
+  //   await this.prisma.verificationCode.create({
+  //     data: {
+  //       userId: user.id,
+  //       code,
+  //       type,
+  //       expiresAt: new Date(Date.now() + this.otpExpiryMinutes * 60 * 1000),
+  //     },
+  //   });
+  //
+  //   this.logger.log(`OTP resent via ${dto.type}: ${dto.email}`);
+  //
+  //   return { message: 'Verification code sent' };
+  // }
 
   async getPendingStudents() {
     return this.prisma.studentProfile.findMany({
@@ -260,33 +255,33 @@ export class StudentsService {
     return { message: 'Student rejected' };
   }
 
-  private async sendVerificationCodes(
-    userId: string,
-    email: string,
-    phone: string,
-  ) {
-    const emailCode = this.otpService.generateOtp();
-    const smsCode = this.otpService.generateOtp();
-    const expiry = new Date(Date.now() + this.otpExpiryMinutes * 60 * 1000);
-
-    this.otpService.sendEmail(email, emailCode);
-    this.otpService.sendSms(phone, smsCode);
-
-    await this.prisma.verificationCode.createMany({
-      data: [
-        {
-          userId,
-          code: emailCode,
-          type: VerificationType.EMAIL,
-          expiresAt: expiry,
-        },
-        {
-          userId,
-          code: smsCode,
-          type: VerificationType.SMS,
-          expiresAt: expiry,
-        },
-      ],
-    });
-  }
+  // private async sendVerificationCodes(
+  //   userId: string,
+  //   email: string,
+  //   phone: string,
+  // ) {
+  //   const emailCode = this.otpService.generateOtp();
+  //   const smsCode = this.otpService.generateOtp();
+  //   const expiry = new Date(Date.now() + this.otpExpiryMinutes * 60 * 1000);
+  //
+  //   this.otpService.sendEmail(email, emailCode);
+  //   this.otpService.sendSms(phone, smsCode);
+  //
+  //   await this.prisma.verificationCode.createMany({
+  //     data: [
+  //       {
+  //         userId,
+  //         code: emailCode,
+  //         type: VerificationType.EMAIL,
+  //         expiresAt: expiry,
+  //       },
+  //       {
+  //         userId,
+  //         code: smsCode,
+  //         type: VerificationType.SMS,
+  //         expiresAt: expiry,
+  //       },
+  //     ],
+  //   });
+  // }
 }
